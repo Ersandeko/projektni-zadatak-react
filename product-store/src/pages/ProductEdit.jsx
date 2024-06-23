@@ -1,19 +1,22 @@
 
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ProductContext } from '../context/ProductContext';
 import axios from 'axios';
 import './ProductPages.css';
 
-const ProductAdd = () => {
-  const { addProduct } = useContext(ProductContext);
+const ProductEdit = () => {
+  const { id } = useParams();
+  const { items, updateProduct } = useContext(ProductContext);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    title: '',
-    price: '',
-    description: '',
-    thumbnail: '',
-  });
+  const product = items.find(p => p.id === parseInt(id));
+  const [formData, setFormData] = useState(product);
+
+  useEffect(() => {
+    if (!product) {
+      navigate('/');
+    }
+  }, [product, navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,9 +24,9 @@ const ProductAdd = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://dummyjson.com/products/add', formData)
+    axios.put(`https://dummyjson.com/products/${id}`, formData)
       .then(res => {
-        addProduct(res.data);
+        updateProduct(res.data);
         navigate('/');
       })
       .catch(err => console.error(err));
@@ -31,8 +34,9 @@ const ProductAdd = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Add Product</h1>
+      <h1>Edit Product</h1>
       <input name="title" value={formData.title} onChange={handleChange} />
+      <input name="brand" value={formData.brand} onChange={handleChange} />
       <input name="price" value={formData.price} onChange={handleChange} />
       <textarea name="description" value={formData.description} onChange={handleChange} />
       <input name="thumbnail" value={formData.thumbnail} onChange={handleChange} />
@@ -41,4 +45,4 @@ const ProductAdd = () => {
   );
 };
 
-export default ProductAdd;
+export default ProductEdit;

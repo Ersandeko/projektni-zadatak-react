@@ -1,75 +1,128 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+}
+
+.home-container {
+  width: 90%;
+  margin: 0 auto;
+}
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 18px;
-    text-align: left;
-  }
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+  text-align: left;
+}
+
+table thead th {
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+table tbody tr {
+  min-height: 50px;
+}
+
+table tbody tr td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+table tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filters input, .filters select {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.add-button {
+  padding: 10px 20px;
+  background-color: #624de3;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-button:hover {
+  background-color: #4d3bb5;
+}
+
+.stock-available {
+  color: green;
+}
+
+.stock-not-available {
+  color: red;
+}
+
+.stock-sale {
+  color: orange;
+}
+
+.edit-button, .delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-button i {
+  color: #007bff;
+}
+
+.delete-button i {
+  color: red;
+}
+
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  list-style: none; 
+}
+
+.pagination-link{
+  margin: 5px;
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: gainsboro;
+  text-decoration: none;
+  cursor: pointer;
   
-  table thead th {
-    background-color: #f2f2f2;
-    padding: 10px;
-  }
+}
+
+.pagination-active {
+  background-color: #624de3;
+  color: white;
   
-  table tbody tr td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  table tbody tr:nth-of-type(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .filters {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .filters input, .filters select {
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  .add-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .add-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .pagination {
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
-  }
-  
-  .pagination a {
-    margin: 0 5px;
-    padding: 8px 16px;
-    border: 1px solid #ddd;
-    color: #333;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  .pagination a.active {
-    background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
-  }
-  
-  .pagination a:hover:not(.active) {
-    background-color: #ddd;
-  }
-  
+} 
+
+
+
+.pagination-previous, .pagination-next {
+  margin: 5px;
+  color: grey;
+}

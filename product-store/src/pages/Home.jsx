@@ -1,9 +1,9 @@
-
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ProductContext } from '../context/ProductContext';
 import ReactPaginate from 'react-paginate';
 import Swal from 'sweetalert2';
+import '@fortawesome/fontawesome-free/css/all.min.css'; 
 import './Home.css'; 
 
 const Home = () => {
@@ -36,7 +36,7 @@ const Home = () => {
   };
 
   const formatDescription = (description) => {
-    return description.length > 50 ? `${description.substring(0, 50)}...` : description;
+    return description.length > 40 ? `${description.substring(0, 40)}...` : description;
   };
 
   const formatPrice = (price) => {
@@ -47,6 +47,12 @@ const Home = () => {
     if (stock > 0 && stock <= 100) return 'Available';
     if (stock <= 0) return 'Not available';
     if (stock > 100) return 'Sale';
+  };
+
+  const getStockClass = (stock) => {
+    if (stock > 0 && stock <= 100) return 'stock-available';
+    if (stock <= 0) return 'stock-not-available';
+    if (stock > 100) return 'stock-sale';
   };
 
   const filteredItems = items
@@ -84,7 +90,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="home-container">
       <h1>Products</h1>
       <div className="filters">
         <input
@@ -102,7 +108,7 @@ const Home = () => {
           <option value="asc">Price: Low to High</option>
           <option value="desc">Price: High to Low</option>
         </select>
-        <Link to="/product/add" className="add-button">Add Product</Link>
+        <Link to="/product/add" className="add-button">+ Add</Link>
       </div>
       <table>
         <thead>
@@ -126,10 +132,14 @@ const Home = () => {
               <td>{product.brand}</td>
               <td>{formatPrice(product.price)}</td>
               <td>{capitalizeFirstLetter(product.category)}</td>
-              <td>{getStockStatus(product.stock)}</td>
+              <td className={getStockClass(product.stock)}>{getStockStatus(product.stock)}</td>
               <td>
-                <button onClick={() => navigate(`/product/edit/${product.id}`)}>Edit</button>
-                <button onClick={() => handleDelete(product.id)}>Delete</button>
+                <button onClick={() => navigate(`/product/edit/${product.id}`)} className="edit-button">
+                  <i className="fas fa-edit"></i>
+                </button>
+                <button onClick={() => handleDelete(product.id)} className="delete-button">
+                  <i className="fas fa-trash"></i>
+                </button>
               </td>
             </tr>
           ))}
@@ -144,7 +154,10 @@ const Home = () => {
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}
         containerClassName={"pagination"}
-        activeClassName={"active"}
+        pageLinkClassName={"pagination-link"}
+        previousLinkClassName={"pagination-previous"}
+        nextLinkClassName={"pagination-next"}
+        activeLinkClassName={"pagination-active"}
       />
     </div>
   );
